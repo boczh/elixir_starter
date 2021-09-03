@@ -35,4 +35,51 @@ defmodule Example do
   def area(:triangle, a, b) do
     0.5 * a * b
   end
+
+@doc """
+  Plane seat
+  iex> Example.seat("BFFFBBFRRR")
+  # %{row: 70, column: 7}
+  # iex> Example.seat("FFFBBBFRRR")
+  # row 14, column 7
+  # iex> Example.area("BBFFBBFRLL")
+  # row 102, column 4
+  # iex> Example.area("BBFFBBFRLLLL")
+  # Format error
+  """
+  def seat(seatid) do
+  # if(length(to_charlist(seatid)) == 10) do
+  #   row=to_charlist(String.slice(seatid, 0..6))
+  #   column=to_charlist(String.slice(seatid, 7..9))
+  #   right = fn x -> x == 'R' end
+  #   left = fn x -> x == 'L' end
+  #   middle = fn x,y -> ((y-x)/2 + x) end
+  #   upper = fn z,p -> trunc(middle.(z,p))+1 end
+  #   upperhalf = [upper.(z,p) , p]
+  #   truncate = trunc(middle.(0,127))
+  # else IO.puts("Format error")
+  end
+
+  @doc """
+
+    iex> Example.mid(0..127, 'F')
+    0..63
+  """
+  def mid(seat_range, 'F') do
+  middle = fn x,y -> ((y-x)/2 + x) end
+  midv = trunc(middle.(seat_range.first,seat_range.last))
+  range=seat_range.first..midv
+  end
+
+  def mid(seat_range, 'B') do
+  middle = fn x,y -> ((y-x)/2 + x) end
+  midv = trunc(middle.(seat_range.first,seat_range.last))
+  range=midv+1..seat_range.last
+  end
+
+  def row(seat_range) do
+    Enum.reduce(seat_range, 0, mid() end)
+  end
+
+
 end
